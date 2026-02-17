@@ -1,72 +1,75 @@
-# ธุวชิต แฉล้มเขตต์ (Tuvachit Chalamkate), Ph.D.
-**Geospatial Data Scientist | Fullstack & Backend Developer | AI Researcher**
-[Email Address] | [LinkedIn Profile URL] | [GitHub Profile URL] | [ResearchGate Profile URL]
+# Tuvachit Chalamkate, Ph.D.
+**Geospatial Data Scientist | Full-Stack & Backend Developer | AI Researcher**
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?logo=linkedin)](https://th.linkedin.com/in/tuvachit-chalamkate-b90211186) 
+[![GitHub](https://img.shields.io/badge/GitHub-Projects-black?logo=github)](https://github.com/crescendonow?tab=projects) 
+[![Scopus](https://img.shields.io/badge/Scopus-Author_Profile-orange)](https://www.scopus.com/pages/publications/85167465997)
+*(Optional: Add [Email] | [ResearchGate Profile URL] here)*
 
 ---
 
 ## 🚀 Professional Summary
-นักวิชาการภูมิสารสนเทศและนักพัฒนาที่มีความเชี่ยวชาญในการสร้าง **End-to-End GIS Data Pipelines** และพัฒนาระบบ AI/ML สำหรับองค์กร มีประสบการณ์ในการทำ **Fullstack Development** เพื่อนำโมเดล Machine Learning ไปใช้งานจริง (Deployment) เชี่ยวชาญการใช้ **Python** ในการทำ Data ETL, การวิเคราะห์ข้อมูลเชิงพื้นที่ (Spatial Analysis) และการพัฒนาอัลกอริทึมซับซ้อน เช่น Geoparsing และ Graph Theory สำหรับระบบสาธารณูปโภค
+A highly skilled Geo-informatics Scientist and Developer with extensive experience in architecting **End-to-End GIS Data Pipelines** and deploying AI/ML solutions for enterprise-level applications. Proficient in **Full-Stack Development**, bridging the gap between complex Machine Learning models and real-world deployment. Specialized in Python-based ETL processes, advanced spatial analysis, and algorithm development (e.g., Geoparsing, Graph Theory) for public utility infrastructure. Adept at leveraging modern technologies including PostgreSQL (PostGIS), Large Language Models (LLMs), and FastAPI to solve complex business and spatial data challenges.
 
 ---
 
-## 💻 Tech Stack & Skills
+## 💻 Tech Stack & Core Skills
 
 ### **Core Programming & Backend**
-*   **Languages:** Python (Expert), SQL, PHP, Go, JavaScript.
-*   **Frameworks & Libraries:** TensorFlow, Keras, Scikit-learn, XGBoost, PyThaiNLP, Pandas, NumPy, Tweepy.
-*   **Backend Frameworks:** FastAPI, Flask 
-*   **Development Tools:** Google Colab, Jupyter Notebook, Git/GitHub, Visual Studio Code.
+* **Languages:** Python (Expert), SQL, JavaScript, PHP, Go, HTML, CSS
+* **Backend Frameworks:** FastAPI, Flask
+* **Tools & Deployment:** Git, Docker, Railway.com, VS Code, Google Colab, Jupyter Notebook
 
 ### **📍 Geospatial & GIS ETL**
-*   **GIS Tools:** QGIS, ArcGIS, Google Geocoding API, Geopandas.
-*   **Spatial Analysis:** Coordinate Systems, Topology Rules, Spatial Clustering (DBSCAN, K-Means), Graph Theory (Betweenness Centrality).
-*   **ETL Pipelines:** ออกแบบกระบวนการดึงข้อมูล (Extract) จาก Social Media และฐานข้อมูลองค์กร (CIS), แปลงข้อมูล (Transform) ด้วย NLP และ Spatial Algorithms, และจัดเก็บ (Load) เพื่อการวิเคราะห์ 
+* **GIS Tools & Libraries:** PostGIS, QGIS, ArcGIS, GeoServer, GeoPandas, Google Geocoding API
+* **Spatial Analysis:** Coordinate Systems, Topology Rules, Spatial Clustering (DBSCAN, K-Means), Graph Theory (Betweenness Centrality), GeoAI
+* **Data Engineering:** Designing automated ETL pipelines (Extracting from social media/enterprise databases, Transforming via NLP/Spatial Algorithms, Loading for analysis)
 
-### **AI & Machine Learning**
-*   **Deep Learning:** BERT (WangchanBERTa), LSTM, Bi-LSTM-CRF, CNN 
-*   **Machine Learning:** Stacking Ensemble, Random Forest, Logistic Regression, Isolation Forest .
-*   **Algorithm Development:** พัฒนาอัลกอริทึม **Topology Words** สำหรับประมาณค่าพิกัด และ **Betweenness Centrality** สำหรับวิเคราะห์โครงข่ายท่อ 
+### **🤖 AI, Machine Learning & NLP**
+* **Machine/Deep Learning:** TensorFlow, Keras, Scikit-learn, XGBoost, Stacking Ensemble, Random Forest, Logistic Regression, Isolation Forest, LSTM, Bi-LSTM-CRF, CNN
+* **Generative AI & LLMs:** Large Language Models (Llama 3, Claude), LangChain, Text-to-SQL, Prompt Engineering, OCR Integration
+* **NLP & Algorithm Development:** PyThaiNLP, BERT (WangchanBERTa), Tweepy, Topology Words (for coordinate estimation)
+
+---
+
+## 💼 Work Experience
+
+### **Scientist 5 (Geo-informatics)**
+**Provincial Waterworks Authority (PWA), Thailand** | *[Insert Start Year] - Present*
+*Distribution System Technology Division*
+* Lead the development and maintenance of Geographic Information Systems (GIS) for waterworks engineering and utility management.
+* Research, develop, and deploy AI/ML models to solve critical business problems, significantly reducing commercial water loss.
+* Drive knowledge management initiatives by training internal staff and engineers on Python programming for engineering applications.
 
 ---
 
 ## 🛠 Key Development & Data Engineering Projects
 
 ### **1. Water Meter Anomaly Detection System (AI-Powered Backend)**
-*   **Role:** Lead Developer & Researcher
-*   **Description:** พัฒนาระบบ Backend เพื่อคัดกรองมาตรวัดน้ำที่มีความผิดปกติ โดยเชื่อมต่อข้อมูลจากระบบ CIS และ MMS (Meter Monitoring System) ของ กปภ. [9, 10].
-*   **Pipeline & ETL:**
-    *   สร้าง Pipeline ดึงข้อมูลประวัติการใช้น้ำย้อนหลัง 4 ปี และข้อมูลคุณลักษณะมาตรวัดน้ำกว่า 140,000 รายการ [2].
-    *   ทำ **Data Cleaning & Preprocessing** โดยใช้อัลกอริทึม **DBSCAN** ตัดข้อมูล Outlier และใช้ Z-score ปรับปรุงคุณภาพข้อมูลก่อนนำเข้าโมเดล [11].
-    *   ทำ **Feature Engineering** สร้างฟีเจอร์ใหม่จากข้อมูลเชิงพื้นที่ (Spatial Features) เช่น ระยะห่างจากจุดซ่อมท่อ และความหนาแน่นของการซ่อมท่อ [12].
-*   **Tech Stack:** Python, XGBoost, LSTM, Stacking Ensemble, Logistic Regression, DBSCAN.
-*   **Impact:** เพิ่มความแม่นยำ (F1-Score) ถึง **0.90 - 0.96** ช่วยลดภาระงานสำรวจภาคสนามและเพิ่มรายได้จากการเปลี่ยนมาตรชำรุดได้จริง [13, 14].
+* **Role:** Lead Developer & Researcher
+* **Description:** Architected a backend system to filter and detect abnormal water meters by integrating 4 years of historical usage data and over 140,000 meter attributes from PWA's CIS and MMS databases.
+* **Implementation:** * Applied **DBSCAN** for outlier removal and Z-score for data quality improvement.
+    * Engineered novel spatial features (e.g., distance to pipe repairs, repair density).
+    * Developed predictive models using **XGBoost, LSTM, and Stacking Ensembles**.
+* **Impact:** Achieved a high F1-Score of **0.90 - 0.96**, significantly reducing the workload for field surveys and increasing revenue through the targeted replacement of defective meters.
 
 ### **2. Thai Geoparsing & Geolocation Estimation Tool**
-*   **Role:** Researcher & Developer
-*   **Description:** พัฒนาเครื่องมือ (Library/Tool) สำหรับสกัดชื่อสถานที่จากข้อความภาษาไทย (Unstructured Text) และประมาณค่าพิกัดภูมิศาสตร์ [3, 15].
-*   **Pipeline & ETL:**
-    *   **Extraction:** ใช้ Tweepy ดึงข้อมูลจาก Twitter ผ่าน API โดยกรองตาม Bounding Box ของพื้นที่ศึกษา [1].
-    *   **Transformation (NLP):** ใช้โมเดล **WangchanBERTa** (Fine-tuned) ร่วมกับ Bi-LSTM-CRF เพื่อทำ Named Entity Recognition (NER) สกัดชื่อสถานที่ [3, 16].
-    *   **Geocoding Logic:** พัฒนาอัลกอริทึม **Topology Words** เพื่อคำนวณพิกัดจากความสัมพันธ์ของสถานที่ข้างเคียงในข้อความ ทดแทนการใช้ Geocoding API แบบเดิม [7, 17].
-*   **Tech Stack:** Python, BERT, PyThaiNLP, Clustering Algorithms (DBSCAN, Agglomerative).
-*   **Impact:** ตีพิมพ์ในวารสารนานาชาติ และ Code เผยแพร่บน GitHub [18].
+* **Role:** Researcher & Developer
+* **Description:** Developed an advanced Python library/tool to extract location names from unstructured Thai text (Twitter) and estimate geographic coordinates without relying on traditional Geocoding APIs.
+* **Implementation:** * Utilized **WangchanBERTa** and Bi-LSTM-CRF for Named Entity Recognition (NER).
+    * Created the **Topology Words** algorithm to calculate coordinates based on the spatial relationships of adjacent locations mentioned in the text.
 
-### **3. Water Pipe Network Vulnerability Analysis (Python Automation)**
-*   **Role:** Developer
-*   **Description:** พัฒนาสคริปต์ Python เพื่อวิเคราะห์หาจุดอ่อนไหว (Critical Nodes) ในโครงข่ายท่อประปาโดยอัตโนมัติ [8].
-*   **Algorithm:** ประยุกต์ใช้ทฤษฎีกราฟ (**Graph Theory**) และอัลกอริทึม **Betweenness Centrality** เพื่อคำนวณหา Node ที่เป็นคอขวดสำคัญของระบบ [8].
-*   **Output:** สร้าง Visualization แสดงจุดเสี่ยงบนแผนที่ GIS เพื่อช่วยวางแผนบำรุงรักษา [19].
+### **3. Geospatial Data Pipeline, API & AI Integration**
+* **Role:** Backend & AI Developer
+* **Description:** Designed and maintained robust backend infrastructure for geospatial data handling.
+* **Implementation:** * Developed automated OCR data entry systems using **Python, FastAPI, and ORM**, hosted on Railway.com.
+    * Managed large-scale **PostgreSQL/PostGIS** databases, optimizing spatial queries and developing Python scripts for automated data extraction (e.g., migrating MongoDB spatial data to Shapefiles).
+    * Integrated **LangChain and LLMs** to build Text-to-SQL systems for natural language database querying.
 
----
-
-## 💼 Work Experience
-
-### **นักวิชาการภูมิสารสนเทศ (Scientist 5 - Geo-informatics)**
-**การประปาส่วนภูมิภาค (Provincial Waterworks Authority - PWA)** | *[ปีที่เริ่มทำงาน] - ปัจจุบัน*
-*สังกัด: กองเทคโนโลยีสารสนเทศระบบจำหน่าย (Distribution System Technology Division)*
-*   รับผิดชอบการพัฒนาและดูแลระบบข้อมูลภูมิสารสนเทศ (GIS) เพื่องานวิศวกรรมประปา.
-*   วิจัยและพัฒนาโมเดล AI/ML เพื่อแก้ปัญหาทางธุรกิจ (Business Problems) เช่น การลดน้ำสูญเสียเชิงพาณิชย์.
-*   ถ่ายทอดองค์ความรู้ (Knowledge Management) ด้านการเขียนโปรแกรม Python สำหรับงานวิศวกรรมให้แก่บุคลากรในองค์กร [20].
+### **4. Water Pipe Network Vulnerability Analysis**
+* **Role:** Developer
+* **Description:** Engineered automated Python scripts to identify critical bottlenecks and vulnerabilities in the water distribution network.
+* **Implementation:** Applied **Graph Theory** and **Betweenness Centrality** algorithms to calculate critical nodes, outputting GIS visualizations to assist in proactive maintenance planning.
 
 ---
 
@@ -74,11 +77,16 @@
 
 ### **Doctor of Philosophy (Ph.D.) in Survey Engineering**
 **Chulalongkorn University** | *2022*
-*   **Thesis:** The development of geoparsing and automated classification from Thai Twitter text data [21].
-*   **Research Focus:** Natural Language Processing (NLP) for Geospatial Data, Machine Learning, Deep Learning.
+* **Thesis:** The development of geoparsing and automated classification from Thai Twitter text data.
+* **Research Focus:** Natural Language Processing (NLP) for Geospatial Data, Machine Learning, Deep Learning.
+* [View on Chula ETD](https://digital.car.chula.ac.th/chulaetd/6586/)
 
 ---
 
-## 📚 Publications
-*   **Chalamkate, T.**, Tinnachote, C., & Rutherford, A. (2023). *Developing Toponym Classification and Geolocation Estimation from Thai Tweets*. International Journal of Geoinformatics [22].
-*   **โมหนองเดิ่น, ภ.**, เจริญผล, ช., & **แฉล้มเขตต์, ธุวชิต**. (2025). *การจำแนกมาตรวัดน้ำที่ผิดปกติ 
+## 📚 Selected Publications & Research
+
+* **Mo-nongdern, P., Charoenphon, C., & Chalamkate, T. (2025).** *Classification of Abnormal Water Meters [Translated Title]*. (Details pending publication/conference).
+* **Chalamkate, T., Tinnachote, C., & Rutherford, A. (2023).** *Developing Toponym Classification and Geolocation Estimation from Thai Tweets*. International Journal of Geoinformatics.
+* **Chalamkate, T., et al.** *Enhancing Urban Heat Island Analysis through Indices-Based Prediction of Land Surface Temperature in Khon Kaen City, Thailand*. GIS-IDEAS (IEEE).
+* **Chalamkate, T., et al.** *The Development of Geo-Names Extraction from Twitter Texts Data by Conditional Random Fields*. Journal of Engineering and Digital Technology (JEDT).
+* **Conference Presentation:** *The 30th National Convention on Civil Engineering (NCCE30)*.
