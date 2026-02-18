@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tuvachit Chalamkate, Ph.D. — Geospatial · AI · Backend</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #12121a;
+    --surface-2: #1a1a26;
+    --border: rgba(255,255,255,0.06);
+    --text: #e8e8ed;
+    --text-dim: #8a8a9a;
+    --text-muted: #5a5a6a;
+    --accent: #4af0c0;
+    --accent-dim: rgba(74,240,192,0.12);
+    --accent-glow: rgba(74,240,192,0.25);
+    --blue: #6ea8fe;
+    --purple: #b48afe;
+    --orange: #ffb86c;
+    --pink: #ff6eb4;
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+scroll-behavior: smooth;
+scrollbar-width: thin;
+scrollbar-color: var(–surface-2) var(–bg);
+}
+
+body {
+font-family: ‘Outfit’, sans-serif;
+background: var(–bg);
+color: var(–text);
+line-height: 1.7;
+font-weight: 300;
+overflow-x: hidden;
+}
+
+/* ─── Ambient Background ─── */
+.ambient {
+position: fixed;
+inset: 0;
+z-index: 0;
+pointer-events: none;
+overflow: hidden;
+}
+.ambient::before {
+content: ‘’;
+position: absolute;
+width: 600px; height: 600px;
+top: -200px; right: -100px;
+background: radial-gradient(circle, rgba(74,240,192,0.06) 0%, transparent 70%);
+animation: drift 20s ease-in-out infinite alternate;
+}
+.ambient::after {
+content: ‘’;
+position: absolute;
+width: 500px; height: 500px;
+bottom: 10%; left: -150px;
+background: radial-gradient(circle, rgba(180,138,254,0.05) 0%, transparent 70%);
+animation: drift 25s ease-in-out infinite alternate-reverse;
+}
+@keyframes drift {
+0% { transform: translate(0,0) scale(1); }
+100% { transform: translate(80px,60px) scale(1.2); }
+}
+
+/* ─── Grid Pattern ─── */
+.grid-pattern {
+position: fixed;
+inset: 0;
+z-index: 0;
+pointer-events: none;
+background-image:
+linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+background-size: 60px 60px;
+mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 20%, transparent 70%);
+}
+
+/* ─── Layout ─── */
+.wrapper {
+position: relative;
+z-index: 1;
+max-width: 900px;
+margin: 0 auto;
+padding: 0 28px;
+}
+
+/* ─── Nav ─── */
+nav {
+position: fixed;
+top: 0; left: 0; right: 0;
+z-index: 100;
+padding: 18px 28px;
+backdrop-filter: blur(20px) saturate(1.5);
+background: rgba(10,10,15,0.7);
+border-bottom: 1px solid var(–border);
+transition: all 0.3s;
+}
+nav .nav-inner {
+max-width: 900px;
+margin: 0 auto;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+nav .logo {
+font-family: ‘DM Serif Display’, serif;
+font-size: 1.15rem;
+color: var(–accent);
+letter-spacing: -0.02em;
+}
+nav .nav-links {
+display: flex;
+gap: 28px;
+list-style: none;
+}
+nav .nav-links a {
+color: var(–text-dim);
+text-decoration: none;
+font-size: 0.82rem;
+font-weight: 400;
+letter-spacing: 0.04em;
+text-transform: uppercase;
+transition: color 0.25s;
+}
+nav .nav-links a:hover { color: var(–accent); }
+
+/* ─── Hero ─── */
+.hero {
+padding: 160px 0 80px;
+position: relative;
+}
+.hero-status {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+padding: 6px 16px;
+background: var(–accent-dim);
+border: 1px solid rgba(74,240,192,0.15);
+border-radius: 100px;
+font-size: 0.78rem;
+color: var(–accent);
+font-weight: 500;
+letter-spacing: 0.03em;
+margin-bottom: 28px;
+animation: fadeUp 0.8s ease-out both;
+}
+.hero-status .dot {
+width: 7px; height: 7px;
+background: var(–accent);
+border-radius: 50%;
+animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+0%,100% { opacity: 1; }
+50% { opacity: 0.3; }
+}
+
+.hero h1 {
+font-family: ‘DM Serif Display’, serif;
+font-size: clamp(2.8rem, 6vw, 4.2rem);
+font-weight: 400;
+line-height: 1.1;
+letter-spacing: -0.03em;
+margin-bottom: 24px;
+animation: fadeUp 0.8s 0.1s ease-out both;
+}
+.hero h1 .accent { color: var(–accent); }
+
+.hero-desc {
+font-size: 1.1rem;
+color: var(–text-dim);
+max-width: 600px;
+line-height: 1.75;
+margin-bottom: 36px;
+animation: fadeUp 0.8s 0.2s ease-out both;
+}
+
+.hero-links {
+display: flex;
+gap: 12px;
+flex-wrap: wrap;
+animation: fadeUp 0.8s 0.3s ease-out both;
+}
+.hero-links a {
+display: inline-flex;
+align-items: center;
+gap: 8px;
+padding: 10px 22px;
+border-radius: 100px;
+font-size: 0.85rem;
+font-weight: 500;
+text-decoration: none;
+transition: all 0.3s;
+}
+.btn-primary {
+background: var(–accent);
+color: var(–bg);
+}
+.btn-primary:hover {
+box-shadow: 0 0 30px var(–accent-glow);
+transform: translateY(-1px);
+}
+.btn-ghost {
+border: 1px solid var(–border);
+color: var(–text-dim);
+background: transparent;
+}
+.btn-ghost:hover {
+border-color: var(–text-dim);
+color: var(–text);
+}
+
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Section ─── */
+section {
+padding: 80px 0;
+}
+.section-label {
+display: inline-flex;
+align-items: center;
+gap: 10px;
+font-size: 0.72rem;
+font-weight: 600;
+letter-spacing: 0.14em;
+text-transform: uppercase;
+color: var(–accent);
+margin-bottom: 14px;
+}
+.section-label::before {
+content: ‘’;
+width: 20px; height: 1px;
+background: var(–accent);
+}
+.section-title {
+font-family: ‘DM Serif Display’, serif;
+font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+font-weight: 400;
+letter-spacing: -0.02em;
+margin-bottom: 48px;
+line-height: 1.2;
+}
+
+/* ─── Skill Domain Cards ─── */
+.domains {
+display: grid;
+grid-template-columns: 1fr;
+gap: 20px;
+}
+.domain-card {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: var(–radius);
+padding: 36px;
+position: relative;
+overflow: hidden;
+transition: all 0.4s;
+}
+.domain-card:hover {
+border-color: rgba(255,255,255,0.1);
+transform: translateY(-2px);
+box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.domain-card::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0;
+width: 100%; height: 3px;
+}
+.domain-card.geo::before { background: linear-gradient(90deg, var(–accent), transparent); }
+.domain-card.backend::before { background: linear-gradient(90deg, var(–blue), transparent); }
+.domain-card.ml::before { background: linear-gradient(90deg, var(–purple), transparent); }
+.domain-card.nlp::before { background: linear-gradient(90deg, var(–orange), transparent); }
+
+.domain-icon {
+width: 44px; height: 44px;
+border-radius: var(–radius-sm);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.3rem;
+margin-bottom: 20px;
+}
+.geo .domain-icon { background: rgba(74,240,192,0.1); }
+.backend .domain-icon { background: rgba(110,168,254,0.1); }
+.ml .domain-icon { background: rgba(180,138,254,0.1); }
+.nlp .domain-icon { background: rgba(255,184,108,0.1); }
+
+.domain-card h3 {
+font-family: ‘Outfit’, sans-serif;
+font-size: 1.15rem;
+font-weight: 600;
+margin-bottom: 10px;
+letter-spacing: -0.01em;
+}
+.domain-card p {
+color: var(–text-dim);
+font-size: 0.9rem;
+margin-bottom: 20px;
+line-height: 1.7;
+}
+.tag-row {
+display: flex;
+flex-wrap: wrap;
+gap: 6px;
+}
+.tag {
+padding: 4px 12px;
+border-radius: 100px;
+font-size: 0.72rem;
+font-weight: 500;
+font-family: ‘JetBrains Mono’, monospace;
+letter-spacing: 0.01em;
+background: var(–surface-2);
+color: var(–text-dim);
+border: 1px solid var(–border);
+transition: all 0.25s;
+}
+.domain-card:hover .tag {
+border-color: rgba(255,255,255,0.08);
+}
+
+/* ─── Timeline ─── */
+.timeline {
+position: relative;
+padding-left: 32px;
+}
+.timeline::before {
+content: ‘’;
+position: absolute;
+left: 0; top: 8px; bottom: 8px;
+width: 1px;
+background: linear-gradient(to bottom, var(–accent), var(–border) 40%, var(–border));
+}
+.timeline-item {
+position: relative;
+margin-bottom: 48px;
+}
+.timeline-item:last-child { margin-bottom: 0; }
+.timeline-item::before {
+content: ‘’;
+position: absolute;
+left: -36px; top: 8px;
+width: 9px; height: 9px;
+border-radius: 50%;
+background: var(–surface);
+border: 2px solid var(–accent);
+}
+.timeline-item:not(:first-child)::before {
+border-color: var(–text-muted);
+}
+.timeline-date {
+font-size: 0.78rem;
+color: var(–text-muted);
+font-weight: 500;
+letter-spacing: 0.04em;
+text-transform: uppercase;
+margin-bottom: 6px;
+}
+.timeline-role {
+font-size: 1.1rem;
+font-weight: 600;
+margin-bottom: 4px;
+}
+.timeline-org {
+color: var(–text-dim);
+font-size: 0.92rem;
+margin-bottom: 12px;
+}
+.timeline-desc {
+color: var(–text-dim);
+font-size: 0.88rem;
+line-height: 1.75;
+}
+
+/* ─── Project Cards ─── */
+.projects-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+gap: 20px;
+}
+.project-card {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: var(–radius);
+padding: 32px;
+transition: all 0.4s;
+position: relative;
+}
+.project-card:hover {
+border-color: rgba(255,255,255,0.1);
+transform: translateY(-2px);
+box-shadow: 0 16px 48px rgba(0,0,0,0.25);
+}
+.project-num {
+font-family: ‘DM Serif Display’, serif;
+font-size: 2.4rem;
+color: var(–surface-2);
+position: absolute;
+top: 20px; right: 28px;
+line-height: 1;
+}
+.project-card h3 {
+font-size: 1.05rem;
+font-weight: 600;
+margin-bottom: 10px;
+padding-right: 40px;
+line-height: 1.4;
+}
+.project-card p {
+font-size: 0.88rem;
+color: var(–text-dim);
+line-height: 1.7;
+margin-bottom: 16px;
+}
+.project-impact {
+display: inline-flex;
+align-items: center;
+gap: 6px;
+padding: 5px 14px;
+background: var(–accent-dim);
+border-radius: 100px;
+font-size: 0.75rem;
+color: var(–accent);
+font-weight: 500;
+font-family: ‘JetBrains Mono’, monospace;
+}
+
+/* ─── Education ─── */
+.edu-card {
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: var(–radius);
+padding: 36px;
+display: flex;
+gap: 28px;
+align-items: flex-start;
+}
+.edu-badge {
+flex-shrink: 0;
+width: 56px; height: 56px;
+border-radius: var(–radius-sm);
+background: var(–accent-dim);
+display: flex;
+align-items: center;
+justify-content: center;
+font-family: ‘DM Serif Display’, serif;
+font-size: 1.1rem;
+color: var(–accent);
+}
+.edu-info h3 {
+font-size: 1.1rem;
+font-weight: 600;
+margin-bottom: 4px;
+}
+.edu-info .edu-school {
+color: var(–text-dim);
+font-size: 0.92rem;
+margin-bottom: 10px;
+}
+.edu-info .edu-thesis {
+font-size: 0.85rem;
+color: var(–text-dim);
+font-style: italic;
+line-height: 1.6;
+}
+
+/* ─── Publications ─── */
+.pub-list {
+display: flex;
+flex-direction: column;
+gap: 16px;
+}
+.pub-item {
+padding: 20px 24px;
+background: var(–surface);
+border: 1px solid var(–border);
+border-radius: var(–radius-sm);
+transition: all 0.3s;
+}
+.pub-item:hover {
+border-color: rgba(255,255,255,0.08);
+}
+.pub-item .pub-title {
+font-size: 0.92rem;
+font-weight: 500;
+margin-bottom: 4px;
+line-height: 1.5;
+}
+.pub-item .pub-venue {
+font-size: 0.8rem;
+color: var(–text-muted);
+}
+
+/* ─── Footer ─── */
+footer {
+padding: 60px 0;
+border-top: 1px solid var(–border);
+text-align: center;
+}
+footer .footer-links {
+display: flex;
+justify-content: center;
+gap: 24px;
+margin-bottom: 20px;
+}
+footer .footer-links a {
+color: var(–text-dim);
+text-decoration: none;
+font-size: 0.85rem;
+transition: color 0.25s;
+}
+footer .footer-links a:hover { color: var(–accent); }
+footer p {
+color: var(–text-muted);
+font-size: 0.78rem;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 700px) {
+.wrapper { padding: 0 20px; }
+nav .nav-links { gap: 16px; }
+nav .nav-links a { font-size: 0.72rem; }
+.hero { padding: 130px 0 60px; }
+.projects-grid { grid-template-columns: 1fr; }
+.edu-card { flex-direction: column; gap: 16px; }
+}
+
+/* ─── Scroll Animations ─── */
+.reveal {
+opacity: 0;
+transform: translateY(24px);
+transition: all 0.7s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible {
+opacity: 1;
+transform: translateY(0);
+}
+</style>
+
+</head>
+<body>
+
+<div class="ambient"></div>
+<div class="grid-pattern"></div>
+
+<!-- Nav -->
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo">TC</div>
+    <ul class="nav-links">
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#publications">Research</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="wrapper">
+
+  <!-- Hero -->
+
+  <section class="hero">
+    <div class="hero-status"><span class="dot"></span> Open to collaboration</div>
+    <h1>Tuvachit<br>Chalamkate<span class="accent">,</span> Ph.D.</h1>
+    <p class="hero-desc">
+      Geospatial data scientist and full-stack developer building end-to-end AI pipelines — from satellite-grade spatial analysis to production-ready NLP and machine learning systems.
+    </p>
+    <div class="hero-links">
+      <a href="https://th.linkedin.com/in/tuvachit-chalamkate-b90211186" class="btn-primary" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/crescendonow?tab=projects" class="btn-ghost" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub
+      </a>
+      <a href="https://www.scopus.com/pages/publications/85167465997" class="btn-ghost" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Scopus
+      </a>
+    </div>
+  </section>
+
+  <!-- Skills / Domains -->
+
+  <section id="skills">
+    <div class="reveal">
+      <div class="section-label">Core Expertise</div>
+      <h2 class="section-title">What I Build & Research</h2>
+    </div>
+    <div class="domains">
+
+```
+  <div class="domain-card geo reveal">
+    <div class="domain-icon">🌍</div>
+    <h3>Geospatial Development</h3>
+    <p>Building end-to-end GIS data pipelines — from raw spatial data to production-ready analytics. Specialized in coordinate systems, topology, spatial clustering, and network analysis for public utility infrastructure.</p>
+    <div class="tag-row">
+      <span class="tag">PostGIS</span>
+      <span class="tag">QGIS</span>
+      <span class="tag">ArcGIS</span>
+      <span class="tag">GeoServer</span>
+      <span class="tag">GeoPandas</span>
+      <span class="tag">DBSCAN</span>
+      <span class="tag">Graph Theory</span>
+      <span class="tag">GeoAI</span>
+      <span class="tag">Google Geocoding</span>
+    </div>
+  </div>
+
+  <div class="domain-card backend reveal">
+    <div class="domain-icon">⚙️</div>
+    <h3>Backend Development</h3>
+    <p>Designing robust APIs and data systems that power geospatial applications. Experienced in building automated ETL pipelines, OCR data entry systems, and scalable database architectures with spatial query optimization.</p>
+    <div class="tag-row">
+      <span class="tag">Python</span>
+      <span class="tag">FastAPI</span>
+      <span class="tag">Flask</span>
+      <span class="tag">PostgreSQL</span>
+      <span class="tag">Docker</span>
+      <span class="tag">SQL</span>
+      <span class="tag">Go</span>
+      <span class="tag">Git</span>
+      <span class="tag">Railway</span>
+      <span class="tag">ORM</span>
+    </div>
+  </div>
+
+  <div class="domain-card ml reveal">
+    <div class="domain-icon">🧠</div>
+    <h3>Machine Learning & Deep Learning</h3>
+    <p>Developing and deploying predictive models for anomaly detection, classification, and forecasting. From classical ensembles to deep neural networks — always focused on measurable real-world impact.</p>
+    <div class="tag-row">
+      <span class="tag">TensorFlow</span>
+      <span class="tag">Keras</span>
+      <span class="tag">Scikit-learn</span>
+      <span class="tag">XGBoost</span>
+      <span class="tag">LSTM</span>
+      <span class="tag">CNN</span>
+      <span class="tag">Random Forest</span>
+      <span class="tag">Stacking Ensemble</span>
+      <span class="tag">Isolation Forest</span>
+    </div>
+  </div>
+
+  <div class="domain-card nlp reveal">
+    <div class="domain-icon">💬</div>
+    <h3>NLP & Generative AI</h3>
+    <p>From Thai-language NLP to LLM-powered applications — building systems that understand human language and turn unstructured text into actionable spatial data. Research expertise in geoparsing and named entity recognition.</p>
+    <div class="tag-row">
+      <span class="tag">LangChain</span>
+      <span class="tag">LLMs</span>
+      <span class="tag">BERT</span>
+      <span class="tag">Bi-LSTM-CRF</span>
+      <span class="tag">Text-to-SQL</span>
+      <span class="tag">PyThaiNLP</span>
+      <span class="tag">Prompt Engineering</span>
+      <span class="tag">OCR</span>
+    </div>
+  </div>
+
+</div>
+```
+
+  </section>
+
+  <!-- Experience -->
+
+  <section id="experience">
+    <div class="reveal">
+      <div class="section-label">Career</div>
+      <h2 class="section-title">Work Experience</h2>
+    </div>
+    <div class="timeline reveal">
+      <div class="timeline-item">
+        <div class="timeline-date">Present</div>
+        <div class="timeline-role">Scientist 5 — Geo-informatics</div>
+        <div class="timeline-org">Provincial Waterworks Authority (PWA), Thailand</div>
+        <div class="timeline-desc">
+          Leading the development of GIS systems for waterworks engineering and utility management. Researching and deploying AI/ML models that significantly reduce commercial water loss. Training engineers and internal staff on Python programming for engineering applications.
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">2022</div>
+        <div class="timeline-role">Ph.D. in Survey Engineering</div>
+        <div class="timeline-org">Chulalongkorn University</div>
+        <div class="timeline-desc">
+          Thesis on geoparsing and automated classification from Thai Twitter text data, combining NLP, deep learning, and geospatial analysis.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+
+  <section id="projects">
+    <div class="reveal">
+      <div class="section-label">Selected Work</div>
+      <h2 class="section-title">Key Projects</h2>
+    </div>
+    <div class="projects-grid">
+
+```
+  <div class="project-card reveal">
+    <div class="project-num">01</div>
+    <h3>Water Meter Anomaly Detection System</h3>
+    <p>Built an AI-powered backend to detect abnormal water meters using 4 years of historical data and 140,000+ meter attributes. Used DBSCAN, XGBoost, LSTM, and stacking ensembles with novel spatial features.</p>
+    <span class="project-impact">F1-Score 0.90–0.96</span>
+  </div>
+
+  <div class="project-card reveal">
+    <div class="project-num">02</div>
+    <h3>Thai Geoparsing & Geolocation Tool</h3>
+    <p>Created a Python library that extracts location names from unstructured Thai text and estimates coordinates without traditional Geocoding APIs. Uses WangchanBERTa and the Topology Words algorithm.</p>
+    <span class="project-impact">API-free geolocation</span>
+  </div>
+
+  <div class="project-card reveal">
+    <div class="project-num">03</div>
+    <h3>Geospatial Data Pipeline & AI Integration</h3>
+    <p>Designed backend infrastructure for geospatial data — automated OCR systems with FastAPI, large-scale PostGIS databases, and LangChain-powered Text-to-SQL for natural language querying.</p>
+    <span class="project-impact">End-to-end pipeline</span>
+  </div>
+
+  <div class="project-card reveal">
+    <div class="project-num">04</div>
+    <h3>Water Pipe Network Vulnerability Analysis</h3>
+    <p>Engineered automated scripts using graph theory and betweenness centrality to identify critical bottlenecks in water distribution networks, outputting GIS visualizations for proactive maintenance.</p>
+    <span class="project-impact">Graph-based analysis</span>
+  </div>
+
+</div>
+```
+
+  </section>
+
+  <!-- Education -->
+
+  <section id="education">
+    <div class="reveal">
+      <div class="section-label">Education</div>
+      <h2 class="section-title">Academic Background</h2>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-badge">Ph.D.</div>
+      <div class="edu-info">
+        <h3>Doctor of Philosophy in Survey Engineering</h3>
+        <div class="edu-school">Chulalongkorn University — 2022</div>
+        <div class="edu-thesis">Thesis: "The development of geoparsing and automated classification from Thai Twitter text data." Research focused on NLP for geospatial data, machine learning, and deep learning.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Publications -->
+
+  <section id="publications">
+    <div class="reveal">
+      <div class="section-label">Research</div>
+      <h2 class="section-title">Selected Publications</h2>
+    </div>
+    <div class="pub-list">
+      <div class="pub-item reveal">
+        <div class="pub-title">Classification of Abnormal Water Meters</div>
+        <div class="pub-venue">Mo-nongdern, P., Charoenphon, C., & Chalamkate, T. (2025)</div>
+      </div>
+      <div class="pub-item reveal">
+        <div class="pub-title">Developing Toponym Classification and Geolocation Estimation from Thai Tweets</div>
+        <div class="pub-venue">International Journal of Geoinformatics — Chalamkate, T., et al. (2023)</div>
+      </div>
+      <div class="pub-item reveal">
+        <div class="pub-title">Enhancing Urban Heat Island Analysis through Indices-Based Prediction of Land Surface Temperature</div>
+        <div class="pub-venue">GIS-IDEAS (IEEE) — Chalamkate, T., et al.</div>
+      </div>
+      <div class="pub-item reveal">
+        <div class="pub-title">The Development of Geo-Names Extraction from Twitter Texts Data by CRF</div>
+        <div class="pub-venue">Journal of Engineering and Digital Technology (JEDT) — Chalamkate, T., et al.</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Footer -->
+
+<footer>
+  <div class="wrapper">
+    <div class="footer-links">
+      <a href="https://th.linkedin.com/in/tuvachit-chalamkate-b90211186" target="_blank">LinkedIn</a>
+      <a href="https://github.com/crescendonow?tab=projects" target="_blank">GitHub</a>
+      <a href="https://www.scopus.com/pages/publications/85167465997" target="_blank">Scopus</a>
+      <a href="https://digital.car.chula.ac.th/chulaetd/6586/" target="_blank">Thesis</a>
+    </div>
+    <p>© 2026 Tuvachit Chalamkate. Built with purpose.</p>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
